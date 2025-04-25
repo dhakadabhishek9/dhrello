@@ -12,6 +12,7 @@ import {
 import Loader from "./components/Loader";
 
 function App() {
+  // Destructuring values and functions from the custom hook
   const {
     loading,
     onDragEnd,
@@ -23,6 +24,7 @@ function App() {
     handleCreate,
   } = useApp();
 
+  // Returns icon badge for each column based on its ID
   const getColumnIcon = (columnId) => {
     switch (columnId) {
       case "todo":
@@ -48,6 +50,7 @@ function App() {
     }
   };
 
+  // Component shown when a column has no tasks
   const renderEmptyColumn = () => (
     <div className='empty-column'>
       <AlertCircle />
@@ -65,11 +68,13 @@ function App() {
         </button>
       </div>
 
+      {/* Show loader if app is in loading state, otherwise show the Kanban board */}
       {loading ? (
         <Loader />
       ) : (
         <DragDropContext onDragEnd={onDragEnd}>
           <div className='kanban-board'>
+            {/* Mapping through each column (e.g., To Do, Done, Delete) */}
             {Object.entries(columns).map(([columnId, column]) => (
               <Droppable key={columnId} droppableId={columnId}>
                 {(provided) => (
@@ -78,6 +83,7 @@ function App() {
                     {...provided.droppableProps}
                     className='kanban-column'
                   >
+                    {/* Column title with icon and task count */}
                     <h2 className='kanban-column-title'>
                       {getColumnIcon(columnId)}
                       {column.title}
@@ -85,6 +91,7 @@ function App() {
                     </h2>
 
                     <div className='task-container'>
+                      {/* Render each task if available, else show the empty column message */}
                       {column.tasks.length > 0
                         ? column.tasks.map((task, index) => (
                             <Draggable
@@ -97,6 +104,10 @@ function App() {
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
+                                  style={{
+                                    ...provided.draggableProps.style,
+                                    cursor: snapshot.isDragging ? "grabbing" : "grab",
+                                  }}
                                   className={`kanban-task ${
                                     snapshot.isDragging ? "dragging" : ""
                                   } ${
@@ -122,6 +133,8 @@ function App() {
           </div>
         </DragDropContext>
       )}
+
+      {/* Modal for creating a new task */}
       {showModal && (
         <CreateModal
           setShowModal={setShowModal}

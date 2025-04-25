@@ -58,7 +58,7 @@ function* addTicketsWorker(action) {
     }));
 
     yield put(addTicketsComplete())
-    yield toast('Ticket Added Successfully!', 'success')
+    yield toast('Task Added Successfully!', 'success')
 
   } catch (e) {
     yield toast('Something went wrong!', 'error')
@@ -74,7 +74,7 @@ function* updateTicketWorker(action) {
     yield updateTicket({ id, data })
 
     yield put(updateTicketComplete())
-    yield toast('Ticket Updated Successfully!', 'success')
+    yield toast('Task Updated Successfully!', 'success')
 
   } catch (e) {
     yield toast('Something went wrong!', 'error')
@@ -90,7 +90,7 @@ function* deleteTicketWorker(action) {
     yield deleteTicket(id)
 
     yield put(deleteTicketComplete())
-    yield toast('Ticket Deleted Successfully!', 'success')
+    yield toast('Task Deleted Successfully!', 'success')
 
   } catch (e) {
     // yield toast('Something went wrong!', 'error')
