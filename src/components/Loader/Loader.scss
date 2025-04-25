@@ -1,0 +1,46 @@
+// Loading Spinner SCSS
+$spinner-size: 50px;
+$spinner-border-width: 4px;
+$spinner-color: #3498db;
+$text-color: #333;
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  
+  .spinner {
+    width: $spinner-size;
+    height: $spinner-size;
+    border: $spinner-border-width solid rgba(lighten($spinner-color, 20%), 0.3);
+    border-top: $spinner-border-width solid $spinner-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .loading-text {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-color;
+  }
+  
+  .loaded-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2ecc71;
+  }
+  
+  .note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
