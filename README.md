@@ -30,7 +30,14 @@ Dhrello is a simple, Trello-inspired Kanban board built using **React**, **Redux
 
 ## 📁 Project Structure
 
-/src ├── components/ # Reusable UI components ├── hooks/ # Custom React hooks (e.g., useApp) ├── store/ # Redux slices and sagas ├── utils/ # API call functions ├── App.js └── index.js
+/src 
+    ├── components/ # Reusable UI components 
+    ├── hooks/ # Custom React hooks (e.g., useApp) 
+    ├── store/ # Redux slices and sagas 
+    ├── utils/ # API call functions 
+    ├── App.jsx
+    ├── main.jsx #entrypoint
+    └── index.js
 
 ## 📦 Installation & Setup
 
@@ -40,6 +47,7 @@ Dhrello is a simple, Trello-inspired Kanban board built using **React**, **Redux
    cd dhrello
 
 2. **Install Dependencies**
+    Node Version must be above 20
    ```bash
    npm i
 
