@@ -8,6 +8,7 @@ const useApp = () => {
     const [showModal, setShowModal] = useState(false);
     const { loading, allTickets } = useSelector(state => state.tickets)
 
+     // Fetch all tickets when the component using this hook mounts
     useEffect(() => {
         dispatch(getAllTicketsStart({ userId: 13 }))
     }, []);
@@ -15,6 +16,7 @@ const useApp = () => {
     //Cols values
     const [columns, setColumns] = useState({});
 
+    // Set up the initial structure of columns based on fetched tickets
     useEffect(() => {
         if (allTickets?.todos?.length) {
             setColumns({
@@ -48,6 +50,7 @@ const useApp = () => {
         const destTasks = [...destCol.tasks];
         const [movedTask] = sourceTasks.splice(source.index, 1);
 
+         // Task moved within the same column
         if (source.droppableId === destination.droppableId) {
             sourceTasks.splice(destination.index, 0, movedTask);
             setColumns({
@@ -55,9 +58,11 @@ const useApp = () => {
                 [source.droppableId]: { ...sourceCol, tasks: sourceTasks },
             });
         } else {
+            // If dropped in "delete" column, dispatch delete action
             if (destCol?.id === 'delete') {
                 dispatch(deleteTicketStart({ id: movedTask?.id }))
             } else {
+                // Otherwise, toggle completion status and update ticket
                 dispatch(updateTicketStart({ data: JSON.stringify({ completed: !movedTask?.completed }), id: 13 }))
             }
             destTasks.splice(destination.index, 0, movedTask);
@@ -69,6 +74,7 @@ const useApp = () => {
         }
     };
 
+    // Handles creating a new task
     const handleCreate = () => {
         if (newTask.trim()) {
             dispatch(addTicketsStart({

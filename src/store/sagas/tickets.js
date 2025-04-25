@@ -22,6 +22,7 @@ import {
 
 import { toast } from '../../components/Toast'
 
+// Root saga watcher: watches for dispatched actions and triggers the corresponding worker saga
 export default function* ticketsWatcher() {
   yield takeLatest(getAllTicketsStart.type, getAllTicketsWorker)
   yield takeLatest(addTicketsStart.type, addTicketsWorker)
@@ -29,16 +30,19 @@ export default function* ticketsWatcher() {
   yield takeLatest(deleteTicketStart.type, deleteTicketWorker)
 }
 
+// Worker saga: Handles fetching all tickets
 function* getAllTicketsWorker(action) {
   try {
     const { userId } = action && action.payload
 
+    // Call API to get tickets for the given user
     const { data } = yield getTickets({ userId })
 
+    // Dispatch complete action with the fetched data
     yield put(getAllTicketsComplete(data))
   } catch (e) {
+    // Show error toast and dispatch complete with empty data on failure
     yield toast('Something went wrong!', 'error')
-
     yield put(getAllTicketsComplete({}))
   }
 }

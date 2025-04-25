@@ -32,6 +32,7 @@ const {
       allTickets: payload
     }),
 
+    //Loading can be added for each action for adding further UI changes
     addTicketsStart: (state) => ({
       ...state,
     }),
